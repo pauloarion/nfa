@@ -11,13 +11,9 @@ import automato.Maquina;
 import automato.MaquinaInvalidaException;
 import automato.Transicao;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -53,7 +49,7 @@ public class TesteDaMaquina {
         transicoes.add(new Transicao(estadoB, estadoC , 'b'));
         transicoes.add(new Transicao(estadoC, estadoA, 'a'));
         
-        maquina1 = new Maquina(estados, transicoes);
+        maquina1 = new Maquina(estados, transicoes, new char[]{'a','b'});
     }
     
     private void ConstruirMaquinaComLoop() {
@@ -69,7 +65,7 @@ public class TesteDaMaquina {
         transicoes.add(new Transicao(estadoA, estadoB, Maquina.EpsilonSymbol));
         transicoes.add(new Transicao(estadoB, estadoA, Maquina.EpsilonSymbol));
         
-        maquinaComLoop = new Maquina(estados, transicoes);
+        maquinaComLoop = new Maquina(estados, transicoes, new char[]{'a','b'});
     }
 
     
@@ -79,7 +75,7 @@ public class TesteDaMaquina {
         estados.add(new Estado('A', false, false));
         estados.add(new Estado('B', false, false));
         estados.add(new Estado('C', true, false));
-        new Maquina(estados, maquina1.getTransicoes());
+        new Maquina(estados, maquina1.getTransicoes(), new char[]{'a','b'});
     }
     
     @Test(expected = MaquinaInvalidaException.class)
@@ -88,7 +84,7 @@ public class TesteDaMaquina {
         estados.add(new Estado('A', false, true));
         estados.add(new Estado('B', false, true));
         estados.add(new Estado('C', true, false));
-        new Maquina(estados, maquina1.getTransicoes());
+        new Maquina(estados, maquina1.getTransicoes(), new char[]{'a','b'});
     }
     
     @Test(expected = MaquinaInvalidaException.class)
@@ -97,7 +93,7 @@ public class TesteDaMaquina {
         estados.add(new Estado('A', false, true));
         estados.add(new Estado('B', false, false));
         estados.add(new Estado('C', false, false));
-        new Maquina(estados, maquina1.getTransicoes());
+        new Maquina(estados, maquina1.getTransicoes(), new char[]{'a','b'});
     }
     
     @Test

@@ -1,5 +1,6 @@
 package automato;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,12 +12,14 @@ public class Maquina {
     
     private boolean stringPertenceALinguagem = false;
     private List<Estado> estados;
+    private char[] alfabeto; 
     private List<Transicao> transicoes;
     public static char EpsilonSymbol = '&';
 
-    public Maquina(List<Estado> estados, List<Transicao> transicoes) {
+    public Maquina(List<Estado> estados, List<Transicao> transicoes, char[] alfabeto) {
         this.estados = estados;
         this.transicoes = transicoes;
+        this.alfabeto = alfabeto;
         Validar();
     }
     
@@ -86,6 +89,8 @@ public class Maquina {
     private void Validar() {
         DevePossuirUmEstadoInicial();
         DevePossuirEstadoFinal();
+        DevePossuirAlfabeto();
+        TransicoesDevemPossuirSomenteSimbolosDoAlfabeto();
     }
 
     private void DevePossuirUmEstadoInicial() {
@@ -98,6 +103,17 @@ public class Maquina {
         int count = getEstados().stream().filter(x -> x.Aceitador()).collect(Collectors.toList()).size();
         if (count > 0) return;
         throw new MaquinaInvalidaException("Autômato deve possuir estado(s) aceitador(es).");
+    }
+    
+    private void DevePossuirAlfabeto() {
+        if (alfabeto.length == 0)throw new MaquinaInvalidaException("Autômato deve possuir alfabeto.");
+    }
+
+    private void TransicoesDevemPossuirSomenteSimbolosDoAlfabeto() {
+        for (Transicao transicao : transicoes) {
+            if (!Util.contains(alfabeto,transicao.simboloParaConsumir) && transicao.simboloParaConsumir != Maquina.EpsilonSymbol)
+                throw new MaquinaInvalidaException("Autômato deve possuir somente transições com símbolos do alfabeto ou com símbolo da string vazia.");
+        }
     }
 
     /**
@@ -135,6 +151,17 @@ public class Maquina {
         this.transicoes = transicoes;
     }
 
-    
-    
+    /**
+     * @return the alfabeto
+     */
+    public char[] getAlfabeto() {
+        return alfabeto;
+    }
+
+    /**
+     * @param alfabeto the alfabeto to set
+     */
+    public void setAlfabeto(char[] alfabeto) {
+        this.alfabeto = alfabeto;
+    }
 }
