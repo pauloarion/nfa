@@ -35,7 +35,7 @@ public class Maquina {
         
         Estado estadoInicial = this.EstadoInicial();
         if (input == null) input = "";
-        processarEstado(estadoInicial, input, null);
+        processarEstado(estadoInicial, new StringBuilder(input).reverse().toString(), null);
         
     }
     

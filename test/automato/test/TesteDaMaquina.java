@@ -37,9 +37,9 @@ public class TesteDaMaquina {
     }
 
     private void ConstruirMaquina1() {
-        Estado estadoA = new Estado('A', false, true);
+        Estado estadoA = new Estado('A', true, true);
         Estado estadoB = new Estado('B', false, false);
-        Estado estadoC = new Estado('C', true, false);
+        Estado estadoC = new Estado('C', false, false);
         List<Estado> estados = new ArrayList<Estado>();
         estados.add(estadoA);
         estados.add(estadoB);
@@ -110,11 +110,38 @@ public class TesteDaMaquina {
     public void deveAceitarString(){
         maquina1.processar("aaa");
         Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bba");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("baa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bbaaaa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("baaaa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("a");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("aa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("aaaa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("baaaaba");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("baaaabaaa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bbabaa");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bbabba");
+        Assert.assertTrue(maquina1.isStringPertenceALinguagem());
     }
     
     @Test
     public void deveRecusarString(){
         maquina1.processar("bbb");
         Assert.assertFalse(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bbab");
+        Assert.assertFalse(maquina1.isStringPertenceALinguagem());
+        maquina1.processar("bbaba");
+        Assert.assertFalse(maquina1.isStringPertenceALinguagem());
     }
 }
+

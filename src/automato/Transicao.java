@@ -41,5 +41,9 @@ public class Transicao {
     boolean isReverse(Transicao transicao) {
         return this.estadoDestino.equals(transicao.estadoOrigem) && this.estadoOrigem.equals(transicao.estadoDestino);
     }
-    
+
+    @Override
+    public String toString() {
+        return "" + estadoOrigem.symbol + "," + this.simboloParaConsumir + " -> " + estadoDestino.symbol;
+    }
 }

@@ -27,7 +27,9 @@ public class Estado {
     public boolean equals(Object obj) {
         return this.symbol == ((Estado)obj).symbol;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return "" + symbol;
+    }
 }
