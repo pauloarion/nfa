@@ -4,16 +4,23 @@ package automato;
  *
  * @author arion/humberto
  */
-class Transicao {
+public class Transicao {
     
     Estado estadoOrigem;
     Estado estadoDestino;
     char simboloParaConsumir;
-    Transicao transicaoAnterior;
+    
+
+    public Transicao(Estado estadoOrigem, Estado estadoDestino, char simboloParaConsumir) {
+        this.estadoOrigem = estadoOrigem;
+        this.estadoDestino = estadoDestino;
+        this.simboloParaConsumir = simboloParaConsumir;
+        
+    }
     
     /*Foi definido que o símbolo que representa transição vazia é o '&'.*/
     boolean isEmpty() {
-        if (simboloParaConsumir == '&')return true;
+        if (simboloParaConsumir == Maquina.EpsilonSymbol)return true;
         else return false;
     }
 

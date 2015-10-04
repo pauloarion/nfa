@@ -20,7 +20,7 @@ public class Automato {
             Maquina maquina = new Maquina(estados, transicoes);
             maquina.processar(input);
             
-            if (maquina.stringPertenceALinguagem)
+            if (maquina.isStringPertenceALinguagem())
                 System.out.append("Máquina reconhece a string :" + input);
             else
                 System.out.append("Máquina não reconhece a string :" + input);

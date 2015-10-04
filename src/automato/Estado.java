@@ -4,13 +4,15 @@ package automato;
  *
  * @author arion/humberto
  */
-class Estado {
+public class Estado {
     boolean aceitador;
     boolean inicial;
+    char symbol;
     
-    Estado(boolean aceitador, boolean inicial){
+    public Estado(char symbol, boolean aceitador, boolean inicial){
         this.aceitador = aceitador;
         this.inicial = inicial;
+        this.symbol = symbol;
     }
     
     boolean Aceitador() {
@@ -20,5 +22,12 @@ class Estado {
     boolean Inicial() {
         return inicial;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.symbol == ((Estado)obj).symbol;
+    }
+    
+    
     
 }

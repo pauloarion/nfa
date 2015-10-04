@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
  *
  * @author arion/humberto
  */
-class Maquina {
+public class Maquina {
     
-    boolean stringPertenceALinguagem = false;
-    List<Estado> estados;
-    List<Transicao> transicoes;
+    private boolean stringPertenceALinguagem = false;
+    private List<Estado> estados;
+    private List<Transicao> transicoes;
+    public static char EpsilonSymbol = '&';
 
     public Maquina(List<Estado> estados, List<Transicao> transicoes) {
         this.estados = estados;
@@ -22,23 +23,23 @@ class Maquina {
     
     /*Retorna o estado inicial.*/
     Estado EstadoInicial() {
-        return estados.stream().filter(x -> x.Inicial()).findFirst().get();
+        return getEstados().stream().filter(x -> x.Inicial()).findFirst().get();
     }
 
     /*Retorna as transições do estado.*/
     List<Transicao> getTransicoes(Estado estado) {
-        return transicoes.stream().filter(x -> x.estadoOrigem.equals(estado)).collect(Collectors.toList());
+        return getTransicoes().stream().filter(x -> x.estadoOrigem.equals(estado)).collect(Collectors.toList());
     }
 
     public void processar(String input) {
         
         Estado estadoInicial = this.EstadoInicial();
         if (input == null) input = "";
-        processarEstado(estadoInicial, input);
+        processarEstado(estadoInicial, input, null);
         
     }
     
-    private void processarEstado(Estado estado, String input) {
+    private void processarEstado(Estado estado, String input, Transicao transicaoAnterior) {
         
         /*Chegou ao estado aceitador consumindo todos os símbolos*/
         if ((input.isEmpty()) && estado.Aceitador()){
@@ -50,24 +51,24 @@ class Maquina {
         para um estado aceitador.*/
         List<Transicao> transicoes = this.getTransicoes(estado);
         for (Transicao transicao : transicoes) {
-            processarTransicao(transicao, input);
+            processarTransicao(transicao, input, transicaoAnterior);
         }
     }
     
-    private void processarTransicao(Transicao transicao, String input) {
+    private void processarTransicao(Transicao transicao, String input, Transicao transicaoAnterior) {
         
         /*Se a transação é vazia, independente dos símbolos que podem existir ou não(sem símbolos, todos consumidos), é realizada a transação para o 
         pŕoximo estado. Porém é verificado primeiro se a transação gera um loop. Gerando loop para o processamento.*/
         if (transicao.isEmpty()){
-            if (!loop(transicao)){
-                processarEstado(transicao.estadoDestino, input);
+            if (!loop(transicao, transicaoAnterior)){
+                processarEstado(transicao.estadoDestino, input, transicao);
             }
             return;
         }
         
         /*Consome símbolo. Se não conseguir consumir o símbolo o processamento acaba.*/
         if (transicao.deveConsumirSimbolo(input)){
-            processarEstado(transicao.estadoDestino, input.substring(0, input.length() - 1));
+            processarEstado(transicao.estadoDestino, input.substring(0, input.length() - 1), transicao);
             return;
         }
         
@@ -75,9 +76,9 @@ class Maquina {
 
     /*Testa se a transação ao ser executada vai gerar um loop, ou seja, a transação anterior era vazia e o estado de destino e origem são o inverso da 
     transação vazia atual.*/
-    private boolean loop(Transicao transicao) {
-        if (transicao.transicaoAnterior == null)return false;
-        if(transicao.transicaoAnterior.isEmpty() && transicao.transicaoAnterior.isReverse(transicao)){
+    private boolean loop(Transicao transicao, Transicao transicaoAnterior) {
+        if (transicaoAnterior == null)return false;
+        if(transicaoAnterior.isEmpty() && transicaoAnterior.isReverse(transicao)){
             return true;
         }return false;
     }
@@ -88,15 +89,50 @@ class Maquina {
     }
 
     private void DevePossuirUmEstadoInicial() {
-        int count = estados.stream().filter(x -> x.Inicial()).collect(Collectors.toList()).size();
+        int count = getEstados().stream().filter(x -> x.Inicial()).collect(Collectors.toList()).size();
         if (count == 1) return;
         throw new MaquinaInvalidaException("Autômato deve possuir um estado inicial.");
     }
 
     private void DevePossuirEstadoFinal() {
-        int count = estados.stream().filter(x -> x.Aceitador()).collect(Collectors.toList()).size();
+        int count = getEstados().stream().filter(x -> x.Aceitador()).collect(Collectors.toList()).size();
         if (count > 0) return;
         throw new MaquinaInvalidaException("Autômato deve possuir estado(s) aceitador(es).");
+    }
+
+    /**
+     * @return the stringPertenceALinguagem
+     */
+    public boolean isStringPertenceALinguagem() {
+        return stringPertenceALinguagem;
+    }
+
+    /**
+     * @return the estados
+     */
+    public List<Estado> getEstados() {
+        return estados;
+    }
+
+    /**
+     * @param estados the estados to set
+     */
+    public void setEstados(List<Estado> estados) {
+        this.estados = estados;
+    }
+
+    /**
+     * @return the transicoes
+     */
+    public List<Transicao> getTransicoes() {
+        return transicoes;
+    }
+
+    /**
+     * @param transicoes the transicoes to set
+     */
+    public void setTransicoes(List<Transicao> transicoes) {
+        this.transicoes = transicoes;
     }
 
     

@@ -9,7 +9,7 @@ package automato;
  *
  * @author gengis
  */
-class MaquinaInvalidaException extends RuntimeException {
+public class MaquinaInvalidaException extends RuntimeException {
     public String mensagem;
     public MaquinaInvalidaException(String msg) {
         this.mensagem = msg;
