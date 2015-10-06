@@ -2,6 +2,7 @@ package automato;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  *
@@ -18,8 +19,8 @@ public class Automato {
             System.out.println("Lendo arquivo.. ");
             
             String input = args[0];
-            List<Estado> estados = null;
-            List<Transicao> transicoes = null;
+            Set<Estado> estados = null;
+            Set<Transicao> transicoes = null;
             
             Maquina maquina = new Maquina(estados, transicoes, new char[]{'a'});
             maquina.processar(input);

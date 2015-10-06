@@ -43,6 +43,16 @@ public class Transicao {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(obj == null)return false;
+        return ((Transicao)obj).estadoOrigem.equals(this.estadoOrigem)
+                && ((Transicao)obj).estadoDestino.equals(this.estadoDestino)
+                && ((Transicao)obj).simboloParaConsumir == this.simboloParaConsumir;
+    }
+    
+    
+
+    @Override
     public String toString() {
         return "" + estadoOrigem.symbol + "," + this.simboloParaConsumir + " -> " + estadoDestino.symbol;
     }

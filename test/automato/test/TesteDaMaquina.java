@@ -10,8 +10,8 @@ import automato.Estado;
 import automato.Maquina;
 import automato.MaquinaInvalidaException;
 import automato.Transicao;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,12 +36,12 @@ public class TesteDaMaquina {
         Estado estadoA = new Estado('A', true, true);
         Estado estadoB = new Estado('B', false, false);
         Estado estadoC = new Estado('C', false, false);
-        List<Estado> estados = new ArrayList<Estado>();
+        Set<Estado> estados = new HashSet<Estado>();
         estados.add(estadoA);
         estados.add(estadoB);
         estados.add(estadoC);
         
-        List<Transicao> transicoes = new ArrayList<Transicao>();
+        Set<Transicao> transicoes = new HashSet<Transicao>();
         transicoes.add(new Transicao(estadoA, estadoB, 'b'));
         transicoes.add(new Transicao(estadoA, estadoC, Maquina.EpsilonSymbol));
         transicoes.add(new Transicao(estadoB, estadoB, 'a'));
@@ -56,12 +56,12 @@ public class TesteDaMaquina {
         Estado estadoA = new Estado('A', false, true);
         Estado estadoB = new Estado('B', false, false);
         Estado estadoC = new Estado('C', true, false);
-        List<Estado> estados = new ArrayList<Estado>();
+        Set<Estado> estados = new HashSet<Estado>();
         estados.add(estadoA);
         estados.add(estadoB);
         estados.add(estadoC);
         
-        List<Transicao> transicoes = new ArrayList<Transicao>();
+        Set<Transicao> transicoes = new HashSet<Transicao>();
         transicoes.add(new Transicao(estadoA, estadoB, Maquina.EpsilonSymbol));
         transicoes.add(new Transicao(estadoB, estadoA, Maquina.EpsilonSymbol));
         
@@ -71,7 +71,7 @@ public class TesteDaMaquina {
     
     @Test(expected = MaquinaInvalidaException.class)
     public void deveRejeitarSeNaoPossuiEstadoInicial(){
-        List<Estado> estados = new ArrayList<Estado>();
+        Set<Estado> estados = new HashSet<Estado>();
         estados.add(new Estado('A', false, false));
         estados.add(new Estado('B', false, false));
         estados.add(new Estado('C', true, false));
@@ -80,7 +80,7 @@ public class TesteDaMaquina {
     
     @Test(expected = MaquinaInvalidaException.class)
     public void deveRejeitarSePossuiMaisDeUmEstadoInicial(){
-        List<Estado> estados = new ArrayList<Estado>();
+        Set<Estado> estados = new HashSet<Estado>();
         estados.add(new Estado('A', false, true));
         estados.add(new Estado('B', false, true));
         estados.add(new Estado('C', true, false));
@@ -89,7 +89,7 @@ public class TesteDaMaquina {
     
     @Test(expected = MaquinaInvalidaException.class)
     public void deveRejeitarSeNaoPossuiNenhumEstadoAceitador(){
-        List<Estado> estados = new ArrayList<Estado>();
+        Set<Estado> estados = new HashSet<Estado>();
         estados.add(new Estado('A', false, true));
         estados.add(new Estado('B', false, false));
         estados.add(new Estado('C', false, false));

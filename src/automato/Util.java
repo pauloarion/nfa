@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,9 +27,9 @@ public class Util {
             Scanner scanner = new Scanner(new FileReader("automato.txt"))
                        .useDelimiter("\\n");
             while (scanner.hasNext()) {
-              List<Estado> estados = LerEstados(scanner.next());
+              Set<Estado> estados = LerEstados(scanner.next());
               char[] alfabeto = LerAlfabeto(scanner.next());
-              List<Transicao> transicoes = LerTransicoes(scanner.next());
+              Set<Transicao> transicoes = LerTransicoes(scanner.next());
               ConfigurarEstadoInicial(scanner.next(), estados);
               ConfigurarEstadosFinais(scanner.next(), estados);
               maquina = new Maquina(estados, transicoes, alfabeto);
@@ -53,8 +54,8 @@ public class Util {
         return alfabeto;
     }
     
-    public static List<Estado> LerEstados(String linha) {
-        List<Estado> estados = null;
+    public static Set<Estado> LerEstados(String linha) {
+        Set<Estado> estados = null;
         try {
             
         } catch (Exception e) {
@@ -64,8 +65,8 @@ public class Util {
         return estados;
     }
     
-    public static List<Transicao> LerTransicoes(String linha){
-        List<Transicao> transicoes = null;
+    public static Set<Transicao> LerTransicoes(String linha){
+        Set<Transicao> transicoes = null;
         try {
             
         } catch (Exception e) {
@@ -75,10 +76,10 @@ public class Util {
         return transicoes;
     }
     
-    private static void ConfigurarEstadoInicial(String next, List<Estado> estados) {
+    private static void ConfigurarEstadoInicial(String next, Set<Estado> estados) {
     }
 
-    private static void ConfigurarEstadosFinais(String next, List<Estado> estados) {
+    private static void ConfigurarEstadosFinais(String next, Set<Estado> estados) {
     }
     
     private static void LogarErroEmArquivo(Exception e) {

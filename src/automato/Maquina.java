@@ -2,6 +2,7 @@ package automato;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -11,12 +12,12 @@ import java.util.stream.Collectors;
 public class Maquina {
     
     private boolean stringPertenceALinguagem = false;
-    private List<Estado> estados;
+    private Set<Estado> estados;
     private char[] alfabeto; 
-    private List<Transicao> transicoes;
+    private Set<Transicao> transicoes;
     public static char EpsilonSymbol = '&';
 
-    public Maquina(List<Estado> estados, List<Transicao> transicoes, char[] alfabeto) {
+    public Maquina(Set<Estado> estados, Set<Transicao> transicoes, char[] alfabeto) {
         this.estados = estados;
         this.transicoes = transicoes;
         this.alfabeto = alfabeto;
@@ -91,6 +92,7 @@ public class Maquina {
         DevePossuirEstadoFinal();
         DevePossuirAlfabeto();
         TransicoesDevemPossuirSomenteSimbolosDoAlfabeto();
+        TransicoesDevemPossuirSomenteEstadosInformados();
     }
 
     private void DevePossuirUmEstadoInicial() {
@@ -115,7 +117,14 @@ public class Maquina {
                 throw new MaquinaInvalidaException("Autômato deve possuir somente transições com símbolos do alfabeto ou com símbolo da string vazia.");
         }
     }
-
+    
+    private void TransicoesDevemPossuirSomenteEstadosInformados() {
+        for (Transicao transicao : transicoes) {
+            if (!estados.contains(transicao.estadoOrigem) || !estados.contains(transicao.estadoDestino))
+                throw new MaquinaInvalidaException("Autômato deve possuir somente transições com os estados definidos.");
+        }
+    }
+    
     /**
      * @return the stringPertenceALinguagem
      */
@@ -126,28 +135,28 @@ public class Maquina {
     /**
      * @return the estados
      */
-    public List<Estado> getEstados() {
+    public Set<Estado> getEstados() {
         return estados;
     }
 
     /**
      * @param estados the estados to set
      */
-    public void setEstados(List<Estado> estados) {
+    public void setEstados(Set<Estado> estados) {
         this.estados = estados;
     }
 
     /**
      * @return the transicoes
      */
-    public List<Transicao> getTransicoes() {
+    public Set<Transicao> getTransicoes() {
         return transicoes;
     }
 
     /**
      * @param transicoes the transicoes to set
      */
-    public void setTransicoes(List<Transicao> transicoes) {
+    public void setTransicoes(Set<Transicao> transicoes) {
         this.transicoes = transicoes;
     }
 
@@ -164,4 +173,8 @@ public class Maquina {
     public void setAlfabeto(char[] alfabeto) {
         this.alfabeto = alfabeto;
     }
+
+    
+
+    
 }
