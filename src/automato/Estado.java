@@ -7,7 +7,7 @@ package automato;
 public class Estado {
     boolean aceitador;
     boolean inicial;
-    String simbolo;
+    public String simbolo;
     
     public Estado(String simbolo, boolean aceitador, boolean inicial){
         this.aceitador = aceitador;
@@ -15,11 +15,11 @@ public class Estado {
         this.simbolo = simbolo;
     }
     
-    boolean Aceitador() {
+    public boolean Aceitador() {
         return aceitador;
     }
 
-    boolean Inicial() {
+    public boolean Inicial() {
         return inicial;
     }
 

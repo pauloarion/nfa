@@ -23,6 +23,13 @@ public class Maquina {
         Validar();
     }
     
+    boolean possuiEstado(String simbolo){
+        return getEstado(simbolo) != null;
+    }
+    
+    Estado getEstado(String simbolo){
+        return getEstados().stream().filter(x -> x.simbolo.equals(simbolo)).findFirst().get();
+    }
     
     /*Retorna o estado inicial.*/
     Estado EstadoInicial() {
@@ -31,7 +38,7 @@ public class Maquina {
 
     /*Retorna as transições do estado.*/
     List<Transicao> getTransicoes(Estado estado) {
-        return getTransicoes().stream().filter(x -> x.estadoOrigem.equals(estado)).collect(Collectors.toList());
+        return getTransicoes().stream().filter(x -> x.estadoOrigem.equals(estado.simbolo)).collect(Collectors.toList());
     }
 
     public void processar(String input) {
@@ -64,14 +71,14 @@ public class Maquina {
         pŕoximo estado. Porém é verificado primeiro se a transação gera um loop. Gerando loop para o processamento.*/
         if (transicao.isEmpty()){
             if (!loop(transicao, transicaoAnterior)){
-                processarEstado(transicao.estadoDestino, input, transicao);
+                processarEstado(getEstado(transicao.estadoDestino), input, transicao);
             }
             return;
         }
         
         /*Consome símbolo. Se não conseguir consumir o símbolo o processamento acaba.*/
         if (transicao.deveConsumirSimbolo(input)){
-            processarEstado(transicao.estadoDestino, input.substring(0, input.length() - 1), transicao);
+            processarEstado(getEstado(transicao.estadoDestino), input.substring(0, input.length() - 1), transicao);
             return;
         }
         
@@ -119,7 +126,7 @@ public class Maquina {
     
     private void TransicoesDevemPossuirSomenteEstadosInformados() {
         for (Transicao transicao : transicoes) {
-            if (!estados.contains(transicao.estadoOrigem) || !estados.contains(transicao.estadoDestino))
+            if (!possuiEstado(transicao.estadoOrigem) || !possuiEstado(transicao.estadoDestino))
                 throw new MaquinaInvalidaException("Autômato deve possuir somente transições com os estados definidos.");
         }
     }

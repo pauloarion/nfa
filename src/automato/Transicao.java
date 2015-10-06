@@ -6,12 +6,12 @@ package automato;
  */
 public class Transicao {
     
-    Estado estadoOrigem;
-    Estado estadoDestino;
+    String estadoOrigem;
+    String estadoDestino;
     String simbolo;
     
 
-    public Transicao(Estado estadoOrigem, Estado estadoDestino, String simbolo) {
+    public Transicao(String estadoOrigem, String estadoDestino, String simbolo) {
         this.estadoOrigem = estadoOrigem;
         this.estadoDestino = estadoDestino;
         this.simbolo = simbolo;
@@ -50,13 +50,13 @@ public class Transicao {
         if(obj == null)return false;
         return ((Transicao)obj).estadoOrigem.equals(this.estadoOrigem)
                 && ((Transicao)obj).estadoDestino.equals(this.estadoDestino)
-                && ((Transicao)obj).simbolo == this.simbolo;
+                && ((Transicao)obj).simbolo.equals(this.simbolo);
     }
     
     
 
     @Override
     public String toString() {
-        return "" + estadoOrigem.simbolo + "," + this.simbolo + " -> " + estadoDestino.simbolo;
+        return "" + estadoOrigem + "," + this.simbolo + " -> " + estadoDestino;
     }
 }

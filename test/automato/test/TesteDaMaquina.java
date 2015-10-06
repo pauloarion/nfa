@@ -44,12 +44,12 @@ public class TesteDaMaquina {
         estados.add(estadoC);
         
         Set<Transicao> transicoes = new HashSet<Transicao>();
-        transicoes.add(new Transicao(estadoA, estadoB, "b"));
-        transicoes.add(new Transicao(estadoA, estadoC, Maquina.Epsilon));
-        transicoes.add(new Transicao(estadoB, estadoB, "a"));
-        transicoes.add(new Transicao(estadoB, estadoC, "a"));
-        transicoes.add(new Transicao(estadoB, estadoC , "b"));
-        transicoes.add(new Transicao(estadoC, estadoA, "a"));
+        transicoes.add(new Transicao("A", "B", "b"));
+        transicoes.add(new Transicao("A", "C", Maquina.Epsilon));
+        transicoes.add(new Transicao("B", "B", "a"));
+        transicoes.add(new Transicao("B", "C", "a"));
+        transicoes.add(new Transicao("B", "C" , "b"));
+        transicoes.add(new Transicao("C", "A", "a"));
         
         maquina1 = new Maquina(estados, transicoes, alfabeto);
     }
@@ -64,8 +64,8 @@ public class TesteDaMaquina {
         estados.add(estadoC);
         
         Set<Transicao> transicoes = new HashSet<Transicao>();
-        transicoes.add(new Transicao(estadoA, estadoB, Maquina.Epsilon));
-        transicoes.add(new Transicao(estadoB, estadoA, Maquina.Epsilon));
+        transicoes.add(new Transicao("A", "B", Maquina.Epsilon));
+        transicoes.add(new Transicao("B", "A", Maquina.Epsilon));
         
         maquinaComLoop = new Maquina(estados, transicoes, alfabeto);
     }
