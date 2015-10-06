@@ -16,10 +16,6 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author gengis
- */
 public class Util {
     
     public static Maquina LerAutomato() {
@@ -34,6 +30,7 @@ public class Util {
               ConfigurarEstadoInicial(scanner.next(), estados);
               ConfigurarEstadosFinais(scanner.next(), estados);
               maquina = new Maquina(estados, transicoes, alfabeto);
+              ProcessarStrings(maquina, scanner);
             }
         } catch (MaquinaInvalidaException e){
             throw e;
@@ -97,15 +94,24 @@ public class Util {
     
     public static void ConfigurarEstadoInicial(String linha, Set<Estado> estados) {
         try {
-            Estado estado = estados.stream().filter(x -> x.simbolo.equals(linha)).findFirst().get();
+            Estado estado = BuscarEstado(estados, linha);
             if (estado != null) estado.inicial = true;
         }catch (MaquinaInvalidaException e){
             LogarErroEmArquivo(e);
             throw e;
         } catch (Exception e) {
             LogarErroEmArquivo(e);
-            throw new MaquinaInvalidaException("Não foi possível extrair alfabeto do autômato.");
+            throw new MaquinaInvalidaException("Não foi possível configurar estado inicial do autômato.");
         }
+    }
+
+    private static Estado BuscarEstado(Set<Estado> estados, String linha) {
+        try {
+            return estados.stream().filter(x -> x.simbolo.equals(linha)).findFirst().get();
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
 
     public static void ConfigurarEstadosFinais(String linha, Set<Estado> estados) {
@@ -122,7 +128,7 @@ public class Util {
             }
             
             for (String aceitador : aceitadores) {
-                Estado estado = estados.stream().filter(x -> x.simbolo.equals(aceitador)).findFirst().get();
+                Estado estado = BuscarEstado(estados, aceitador);
                 if (estado != null) estado.aceitador = true;
             }
             
@@ -131,18 +137,18 @@ public class Util {
             throw e;
         } catch (Exception e) {
             LogarErroEmArquivo(e);
-            throw new MaquinaInvalidaException("Não foi possível extrair alfabeto do autômato.");
+            throw new MaquinaInvalidaException("Não foi possível configurar estados finais do autômato.");
         }
     }
     
     private static void LogarErroEmArquivo(Exception e) {
-        PrintWriter pw = null;
         try {
-            pw = new PrintWriter(new FileOutputStream("Log"));
+            PrintWriter pw = new PrintWriter(new FileOutputStream("Log"));
+            e.printStackTrace(pw);
+            pw.flush();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
-        e.printStackTrace(pw);
     }
 
     private static void naoDevePossuirCamposVazios(String[] values, String campo) {
@@ -154,7 +160,7 @@ public class Util {
     private static Set<Estado> construirEstadosDeArray(String[] simbolos) {
         Set<Estado> estados = new HashSet<>();
         for (String simbolo : simbolos) {
-           estados.add(new Estado(simbolo, false, false));
+            estados.add(new Estado(simbolo, false, false));
         }
         return estados;
     }
@@ -164,5 +170,22 @@ public class Util {
         naoDevePossuirCamposVazios(elementos, "Símbolo e estados de uma transação");
         if (elementos.length !=  3) throw new MaquinaInvalidaException("Transição inválida: " +  elemento);
         return new Transicao(elementos[0], elementos[2], elementos[1] );
+    }
+
+    private static void ProcessarStrings(Maquina maquina, Scanner scanner) {
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream("Respostas.txt", false));
+            pw.println("");
+            pw.println("Respostas:");
+            while (scanner.hasNext()){
+                String next = scanner.next();
+                maquina.processar(next);
+                pw.println(next + " : " + (maquina.isStringPertenceALinguagem()?"Pertence":"Não pertence"));
+            }
+            pw.flush();
+        } catch (Exception ex) {
+            LogarErroEmArquivo(ex);
+            ex.printStackTrace(System.err);
+        }
     }
 }

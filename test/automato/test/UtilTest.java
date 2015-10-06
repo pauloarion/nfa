@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -73,7 +74,7 @@ public class UtilTest {
     }
     
     @Test
-    public void DeveSetarAceitadore(){
+    public void DeveSetarAceitador(){
         Set<Estado> estados = new HashSet<>();
         estados.add(new Estado("T", false, false));
         Estado aceitador = new Estado("Y", false, false);
@@ -86,14 +87,25 @@ public class UtilTest {
     @Test
     public void DeveSetarAceitadores(){
         Set<Estado> estados = new HashSet<>();
+        estados.add(new Estado("M", false, false));
+        estados.add(new Estado("Y", false, false));
         estados.add(new Estado("T", false, false));
-        Estado aceitador = new Estado("Y", false, false);
-        estados.add(aceitador);
-        Estado aceitador2 = new Estado("T", false, false);
-        estados.add(aceitador2);
         Util.ConfigurarEstadosFinais("Y,T", estados);
-        assertTrue(aceitador.Aceitador());
-        assertTrue(aceitador2.Aceitador());
+        assertFalse(estados.stream().filter(x -> x.simbolo.equals("M")).findFirst().get().Aceitador());
+        assertTrue(estados.stream().filter(x -> x.simbolo.equals("Y")).findFirst().get().Aceitador());
+        assertTrue(estados.stream().filter(x -> x.simbolo.equals("T")).findFirst().get().Aceitador());
+    }
+    
+    @Test
+    public void DeveSetarAceitadoresMesmoComEstadoInvalido(){
+        Set<Estado> estados = new HashSet<>();
+        estados.add(new Estado("M", false, false));
+        estados.add(new Estado("J", false, false));
+        estados.add(new Estado("T", false, false));
+        Util.ConfigurarEstadosFinais("Y,T", estados);
+        assertFalse(estados.stream().filter(x -> x.simbolo.equals("M")).findFirst().get().Aceitador());
+        assertFalse(estados.stream().filter(x -> x.simbolo.equals("J")).findFirst().get().Aceitador());
+        assertTrue(estados.stream().filter(x -> x.simbolo.equals("T")).findFirst().get().Aceitador());
     }
     
 }

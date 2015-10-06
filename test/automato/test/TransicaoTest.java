@@ -5,7 +5,6 @@
  */
 package automato.test;
 
-import automato.Estado;
 import automato.Transicao;
 import org.junit.Test;
 import static org.junit.Assert.*;

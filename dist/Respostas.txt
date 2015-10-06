@@ -1,0 +1,7 @@
+
+Respostas:
+aab : Pertence
+ab : Pertence
+abbb : Pertence
+abbba : Pertence
+abbb : Pertence

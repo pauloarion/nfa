@@ -1,0 +1,10 @@
+A,B
+a,b
+A,a,B;B,&,B;B,b,B;B,&,A;A,&,B
+A
+B
+aab
+ab
+abbb
+abbba
+abbb

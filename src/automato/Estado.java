@@ -1,5 +1,7 @@
 package automato;
 
+import java.util.Objects;
+
 /**
  *
  * @author arion/humberto
@@ -24,8 +26,24 @@ public class Estado {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object obj) {
-        return this.simbolo.equals(((Estado)obj).simbolo);
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Estado other = (Estado) obj;
+        if (!Objects.equals(this.simbolo, other.simbolo)) {
+            return false;
+        }
+        return true;
     }
 
     @Override

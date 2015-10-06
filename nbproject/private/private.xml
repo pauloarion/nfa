@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/automato/Transicao.java</url>
+            <bookmark id="2">
+                <name/>
+                <line>31</line>
+                <key/>
+            </bookmark>
+        </file>
         <file>
             <url>src/automato/Util.java</url>
             <bookmark id="1">
                 <name/>
-                <line>61</line>
+                <line>69</line>
                 <key/>
             </bookmark>
         </file>
@@ -15,6 +23,8 @@
             <file>file:/home/gengis/NetBeansProjects/Automato/src/automato/Util.java</file>
             <file>file:/home/gengis/NetBeansProjects/Automato/src/automato/Automato.java</file>
             <file>file:/home/gengis/NetBeansProjects/Automato/src/automato/Transicao.java</file>
+            <file>file:/home/gengis/NetBeansProjects/Automato/test/automato/test/UtilTest.java</file>
+            <file>file:/home/gengis/NetBeansProjects/Automato/test/automato/test/TransicaoTest.java</file>
             <file>file:/home/gengis/NetBeansProjects/Automato/test/automato/test/TesteDaMaquina.java</file>
             <file>file:/home/gengis/NetBeansProjects/Automato/src/automato/Estado.java</file>
             <file>file:/home/gengis/NetBeansProjects/Automato/src/automato/Maquina.java</file>

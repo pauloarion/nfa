@@ -1,8 +1,5 @@
 package automato;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  *
  * @author arion/humberto
@@ -17,17 +14,7 @@ public class Automato {
             
             System.out.println("Lendo arquivo.. ");
             
-            String input = args[0];
-            Set<Estado> estados = null;
-            Set<Transicao> transicoes = null;
-            
-            Maquina maquina = new Maquina(estados, transicoes, new HashSet());
-            maquina.processar(input);
-            
-            if (maquina.isStringPertenceALinguagem())
-                System.out.append("Máquina reconhece a string :" + input);
-            else
-                System.out.append("Máquina não reconhece a string :" + input);
+            Util.LerAutomato();
             
             System.out.println("Arquivo de resultados criado.");
             

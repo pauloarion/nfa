@@ -1,5 +1,6 @@
 package automato;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -12,14 +13,25 @@ public class Maquina {
     
     private boolean stringPertenceALinguagem = false;
     private Set<Estado> estados;
-    private Set<String> alfabeto; 
+    private Set<String> alfabeto;
     private Set<Transicao> transicoes;
     public static String Epsilon = "&";
 
     public Maquina(Set<Estado> estados, Set<Transicao> transicoes, Set<String> alfabeto) {
-        this.estados = estados;
-        this.transicoes = transicoes;
-        this.alfabeto = alfabeto;
+        this.transicoes = new HashSet<>();
+        this.alfabeto = new HashSet<>();
+        this.estados = new HashSet<>();
+        
+        for (Estado estado : estados) {
+            addEstado(estado);
+        }
+        for (Transicao transicao : transicoes) {
+            addTransicao(transicao);
+        }
+        for (String simbolo : alfabeto) {
+            addSimboloDoAlfabeto(simbolo);
+        }
+        
         Validar();
     }
     
@@ -42,7 +54,7 @@ public class Maquina {
     }
 
     public void processar(String input) {
-        
+        this.stringPertenceALinguagem = false;
         Estado estadoInicial = this.EstadoInicial();
         if (input == null) input = "";
         processarEstado(estadoInicial, new StringBuilder(input).reverse().toString(), null);
@@ -144,26 +156,12 @@ public class Maquina {
     public Set<Estado> getEstados() {
         return estados;
     }
-
-    /**
-     * @param estados the estados to set
-     */
-    public void setEstados(Set<Estado> estados) {
-        this.estados = estados;
-    }
-
-    /**
+    
+    /** 
      * @return the transicoes
      */
     public Set<Transicao> getTransicoes() {
         return transicoes;
-    }
-
-    /**
-     * @param transicoes the transicoes to set
-     */
-    public void setTransicoes(Set<Transicao> transicoes) {
-        this.transicoes = transicoes;
     }
 
     /**
@@ -172,11 +170,16 @@ public class Maquina {
     public Set<String> getAlfabeto() {
         return alfabeto;
     }
+    
+    private void addEstado(Estado estado) {
+        if(!estados.contains(estado))estados.add(estado);
+    }
 
-    /**
-     * @param alfabeto the alfabeto to set
-     */
-    public void setAlfabeto(Set<String> alfabeto) {
-        this.alfabeto = alfabeto;
+    private void addTransicao(Transicao transicao) {
+        if (!transicoes.contains(transicao))transicoes.add(transicao);
+    }
+
+    private void addSimboloDoAlfabeto(String simbolo) {
+        if (!alfabeto.contains(simbolo))alfabeto.add(simbolo);
     }
 }
