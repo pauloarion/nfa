@@ -1,7 +1,6 @@
 package automato;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +21,7 @@ public class Automato {
             Set<Estado> estados = null;
             Set<Transicao> transicoes = null;
             
-            Maquina maquina = new Maquina(estados, transicoes, new char[]{'a'});
+            Maquina maquina = new Maquina(estados, transicoes, new HashSet());
             maquina.processar(input);
             
             if (maquina.isStringPertenceALinguagem())

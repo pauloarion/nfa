@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.PrintWriter;
-import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.logging.Level;
@@ -28,7 +27,7 @@ public class Util {
                        .useDelimiter("\\n");
             while (scanner.hasNext()) {
               Set<Estado> estados = LerEstados(scanner.next());
-              char[] alfabeto = LerAlfabeto(scanner.next());
+              Set<String> alfabeto = LerAlfabeto(scanner.next());
               Set<Transicao> transicoes = LerTransicoes(scanner.next());
               ConfigurarEstadoInicial(scanner.next(), estados);
               ConfigurarEstadosFinais(scanner.next(), estados);
@@ -43,9 +42,10 @@ public class Util {
         return maquina;
     }
     
-    public static char[] LerAlfabeto(String linha) {
-        char[] alfabeto = null;
+    public static Set<String> LerAlfabeto(String linha) {
+        Set<String> alfabeto = null;
         try {
+            String[] split = linha.split(",");
             
         } catch (Exception e) {
             LogarErroEmArquivo(e);
@@ -90,12 +90,5 @@ public class Util {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
         e.printStackTrace(pw);
-    }
-
-    static boolean contains(char[] alfabeto, char simboloParaConsumir) {
-        for (char element : alfabeto) {
-            if (element == simboloParaConsumir)return true;
-        }
-        return false;
     }
 }

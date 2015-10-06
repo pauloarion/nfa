@@ -7,12 +7,12 @@ package automato;
 public class Estado {
     boolean aceitador;
     boolean inicial;
-    char symbol;
+    String simbolo;
     
-    public Estado(char symbol, boolean aceitador, boolean inicial){
+    public Estado(String simbolo, boolean aceitador, boolean inicial){
         this.aceitador = aceitador;
         this.inicial = inicial;
-        this.symbol = symbol;
+        this.simbolo = simbolo;
     }
     
     boolean Aceitador() {
@@ -25,11 +25,11 @@ public class Estado {
 
     @Override
     public boolean equals(Object obj) {
-        return this.symbol == ((Estado)obj).symbol;
+        return this.simbolo.equals(((Estado)obj).simbolo);
     }
 
     @Override
     public String toString() {
-        return "" + symbol;
+        return "" + simbolo;
     }
 }

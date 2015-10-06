@@ -1,6 +1,5 @@
 package automato;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,11 +12,11 @@ public class Maquina {
     
     private boolean stringPertenceALinguagem = false;
     private Set<Estado> estados;
-    private char[] alfabeto; 
+    private Set<String> alfabeto; 
     private Set<Transicao> transicoes;
-    public static char EpsilonSymbol = '&';
+    public static String Epsilon = "&";
 
-    public Maquina(Set<Estado> estados, Set<Transicao> transicoes, char[] alfabeto) {
+    public Maquina(Set<Estado> estados, Set<Transicao> transicoes, Set<String> alfabeto) {
         this.estados = estados;
         this.transicoes = transicoes;
         this.alfabeto = alfabeto;
@@ -108,12 +107,12 @@ public class Maquina {
     }
     
     private void DevePossuirAlfabeto() {
-        if (alfabeto.length == 0)throw new MaquinaInvalidaException("Autômato deve possuir alfabeto.");
+        if (alfabeto.isEmpty())throw new MaquinaInvalidaException("Autômato deve possuir alfabeto.");
     }
 
     private void TransicoesDevemPossuirSomenteSimbolosDoAlfabeto() {
         for (Transicao transicao : transicoes) {
-            if (!Util.contains(alfabeto,transicao.simboloParaConsumir) && transicao.simboloParaConsumir != Maquina.EpsilonSymbol)
+            if ( !alfabeto.contains(transicao.simbolo) && !transicao.simbolo.equals(Maquina.Epsilon))
                 throw new MaquinaInvalidaException("Autômato deve possuir somente transições com símbolos do alfabeto ou com símbolo da string vazia.");
         }
     }
@@ -163,18 +162,14 @@ public class Maquina {
     /**
      * @return the alfabeto
      */
-    public char[] getAlfabeto() {
+    public Set<String> getAlfabeto() {
         return alfabeto;
     }
 
     /**
      * @param alfabeto the alfabeto to set
      */
-    public void setAlfabeto(char[] alfabeto) {
+    public void setAlfabeto(Set<String> alfabeto) {
         this.alfabeto = alfabeto;
     }
-
-    
-
-    
 }

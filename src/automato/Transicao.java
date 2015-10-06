@@ -8,33 +8,36 @@ public class Transicao {
     
     Estado estadoOrigem;
     Estado estadoDestino;
-    char simboloParaConsumir;
+    String simbolo;
     
 
-    public Transicao(Estado estadoOrigem, Estado estadoDestino, char simboloParaConsumir) {
+    public Transicao(Estado estadoOrigem, Estado estadoDestino, String simbolo) {
         this.estadoOrigem = estadoOrigem;
         this.estadoDestino = estadoDestino;
-        this.simboloParaConsumir = simboloParaConsumir;
+        this.simbolo = simbolo;
         
     }
     
     /*Foi definido que o símbolo que representa transição vazia é o '&'.*/
     boolean isEmpty() {
-        if (simboloParaConsumir == Maquina.EpsilonSymbol)return true;
+        if (simbolo.equals(Maquina.Epsilon))return true;
         else return false;
     }
 
-    boolean deveConsumirSimbolo(String input) {
+    public boolean deveConsumirSimbolo(String input) {
         
         /*Se não existem símbolos para consumir então o processamento acaba.*/
         if (input.isEmpty()) return false;
         
-        char simboloConsumido = input.charAt(input.length() - 1);
-        /*Se os símbolos para consumir e o consumido são iguais.*/
-        if (simboloParaConsumir == simboloConsumido) return true;
-        /*Se os símbolos para consumir e o consumido não são iguais.*/
-        return false;
-        
+        String simboloConsumido = extrairSimboloDaPalavra(input);
+
+        return simbolo.equals(simboloConsumido);
+    }
+
+    private String extrairSimboloDaPalavra(String input) {
+        try {
+            return input.substring(input.length() - simbolo.length());
+        } catch (Exception e) {return null;}
     }
 
     /*Transação atual é uma transação inversa da transação testada.*/
@@ -47,13 +50,13 @@ public class Transicao {
         if(obj == null)return false;
         return ((Transicao)obj).estadoOrigem.equals(this.estadoOrigem)
                 && ((Transicao)obj).estadoDestino.equals(this.estadoDestino)
-                && ((Transicao)obj).simboloParaConsumir == this.simboloParaConsumir;
+                && ((Transicao)obj).simbolo == this.simbolo;
     }
     
     
 
     @Override
     public String toString() {
-        return "" + estadoOrigem.symbol + "," + this.simboloParaConsumir + " -> " + estadoDestino.symbol;
+        return "" + estadoOrigem.simbolo + "," + this.simbolo + " -> " + estadoDestino.simbolo;
     }
 }
