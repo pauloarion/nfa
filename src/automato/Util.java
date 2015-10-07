@@ -126,7 +126,7 @@ public class Util {
                     aceitadores[0] = linha;
                 }
             }
-            
+            if(aceitadores == null || aceitadores.length == 0)return;
             for (String aceitador : aceitadores) {
                 Estado estado = BuscarEstado(estados, aceitador);
                 if (estado != null) estado.aceitador = true;

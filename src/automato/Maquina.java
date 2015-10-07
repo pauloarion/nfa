@@ -57,11 +57,11 @@ public class Maquina {
         this.stringPertenceALinguagem = false;
         Estado estadoInicial = this.EstadoInicial();
         if (input == null) input = "";
-        processarEstado(estadoInicial, new StringBuilder(input).reverse().toString(), null);
+        processarEstado(estadoInicial, new StringBuilder(input).reverse().toString(), 0);
         
     }
     
-    private void processarEstado(Estado estado, String input, Transicao transicaoAnterior) {
+    private void processarEstado(Estado estado, String input, int contadorDeTransacoesVazias) {
         
         /*Chegou ao estado aceitador consumindo todos os símbolos*/
         if ((input.isEmpty()) && estado.Aceitador()){
@@ -73,41 +73,31 @@ public class Maquina {
         para um estado aceitador.*/
         List<Transicao> transicoes = this.getTransicoes(estado);
         for (Transicao transicao : transicoes) {
-            processarTransicao(transicao, input, transicaoAnterior);
+            processarTransicao(transicao, input, contadorDeTransacoesVazias);
         }
     }
     
-    private void processarTransicao(Transicao transicao, String input, Transicao transicaoAnterior) {
+    private void processarTransicao(Transicao transicao, String input, int contadorDeTransacoesVazias) {
         
         /*Se a transação é vazia, independente dos símbolos que podem existir ou não(sem símbolos, todos consumidos), é realizada a transação para o 
         pŕoximo estado. Porém é verificado primeiro se a transação gera um loop. Gerando loop para o processamento.*/
         if (transicao.isEmpty()){
-            if (!loop(transicao, transicaoAnterior)){
-                processarEstado(getEstado(transicao.estadoDestino), input, transicao);
-            }
+            contadorDeTransacoesVazias++;
+            if (contadorDeTransacoesVazias > estados.size()){return;}
+            processarEstado(getEstado(transicao.estadoDestino), input, contadorDeTransacoesVazias);
             return;
         }
         
         /*Consome símbolo. Se não conseguir consumir o símbolo o processamento acaba.*/
         if (transicao.deveConsumirSimbolo(input)){
-            processarEstado(getEstado(transicao.estadoDestino), input.substring(0, input.length() - 1), transicao);
+            processarEstado(getEstado(transicao.estadoDestino), input.substring(0, input.length() - 1), 0);
             return;
         }
         
     }
 
-    /*Testa se a transação ao ser executada vai gerar um loop, ou seja, a transação anterior era vazia e o estado de destino e origem são o inverso da 
-    transação vazia atual.*/
-    private boolean loop(Transicao transicao, Transicao transicaoAnterior) {
-        if (transicaoAnterior == null)return false;
-        if(transicaoAnterior.isEmpty() && transicaoAnterior.isReverse(transicao)){
-            return true;
-        }return false;
-    }
-
     private void Validar() {
         DevePossuirUmEstadoInicial();
-        DevePossuirEstadoFinal();
         DevePossuirAlfabeto();
         TransicoesDevemPossuirSomenteSimbolosDoAlfabeto();
         TransicoesDevemPossuirSomenteEstadosInformados();
@@ -117,12 +107,6 @@ public class Maquina {
         int count = getEstados().stream().filter(x -> x.Inicial()).collect(Collectors.toList()).size();
         if (count == 1) return;
         throw new MaquinaInvalidaException("Autômato deve possuir um estado inicial.");
-    }
-
-    private void DevePossuirEstadoFinal() {
-        int count = getEstados().stream().filter(x -> x.Aceitador()).collect(Collectors.toList()).size();
-        if (count > 0) return;
-        throw new MaquinaInvalidaException("Autômato deve possuir estado(s) aceitador(es).");
     }
     
     private void DevePossuirAlfabeto() {

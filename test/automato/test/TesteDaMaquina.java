@@ -89,8 +89,8 @@ public class TesteDaMaquina {
         new Maquina(estados, maquina1.getTransicoes(), alfabeto);
     }
     
-    @Test(expected = MaquinaInvalidaException.class)
-    public void deveRejeitarSeNaoPossuiNenhumEstadoAceitador(){
+    @Test
+    public void deveAceitarSeNaoPossuiNenhumEstadoAceitador(){
         Set<Estado> estados = new HashSet<Estado>();
         estados.add(new Estado("A", false, true));
         estados.add(new Estado("B", false, false));

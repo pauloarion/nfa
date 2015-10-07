@@ -40,11 +40,6 @@ public class Transicao {
         } catch (Exception e) {return null;}
     }
 
-    /*Transação atual é uma transação inversa da transação testada.*/
-    boolean isReverse(Transicao transicao) {
-        return this.estadoDestino.equals(transicao.estadoOrigem) && this.estadoOrigem.equals(transicao.estadoDestino);
-    }
-
     @Override
     public boolean equals(Object obj) {
         if(obj == null)return false;
@@ -52,8 +47,6 @@ public class Transicao {
                 && ((Transicao)obj).estadoDestino.equals(this.estadoDestino)
                 && ((Transicao)obj).simbolo.equals(this.simbolo);
     }
-    
-    
 
     @Override
     public String toString() {

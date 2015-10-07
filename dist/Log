@@ -1,5 +1,0 @@
-automato.MaquinaInvalidaException
-	at automato.Util.construirTransicao(Util.java:171)
-	at automato.Util.LerTransicoes(Util.java:82)
-	at automato.Util.LerAutomato(Util.java:29)
-	at automato.Automato.main(Automato.java:17)
