@@ -16,10 +16,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- *
- * @author gengis
- */
 public class TesteDaMaquina {
     
     Maquina maquina1 = null;
@@ -38,12 +34,12 @@ public class TesteDaMaquina {
         Estado estadoA = new Estado("A", true, true);
         Estado estadoB = new Estado("B", false, false);
         Estado estadoC = new Estado("C", false, false);
-        Set<Estado> estados = new HashSet<Estado>();
+        Set<Estado> estados = new HashSet<>();
         estados.add(estadoA);
         estados.add(estadoB);
         estados.add(estadoC);
         
-        Set<Transicao> transicoes = new HashSet<Transicao>();
+        Set<Transicao> transicoes = new HashSet<>();
         transicoes.add(new Transicao("A", "B", "b"));
         transicoes.add(new Transicao("A", "C", Maquina.Epsilon));
         transicoes.add(new Transicao("B", "B", "a"));
@@ -58,12 +54,12 @@ public class TesteDaMaquina {
         Estado estadoA = new Estado("A", false, true);
         Estado estadoB = new Estado("B", false, false);
         Estado estadoC = new Estado("C", true, false);
-        Set<Estado> estados = new HashSet<Estado>();
+        Set<Estado> estados = new HashSet<>();
         estados.add(estadoA);
         estados.add(estadoB);
         estados.add(estadoC);
         
-        Set<Transicao> transicoes = new HashSet<Transicao>();
+        Set<Transicao> transicoes = new HashSet<>();
         transicoes.add(new Transicao("A", "B", Maquina.Epsilon));
         transicoes.add(new Transicao("B", "A", Maquina.Epsilon));
         
@@ -73,7 +69,7 @@ public class TesteDaMaquina {
     
     @Test(expected = MaquinaInvalidaException.class)
     public void deveRejeitarSeNaoPossuiEstadoInicial(){
-        Set<Estado> estados = new HashSet<Estado>();
+        Set<Estado> estados = new HashSet<>();
         estados.add(new Estado("A", false, false));
         estados.add(new Estado("B", false, false));
         estados.add(new Estado("C", true, false));
@@ -82,7 +78,7 @@ public class TesteDaMaquina {
     
     @Test(expected = MaquinaInvalidaException.class)
     public void deveRejeitarSePossuiMaisDeUmEstadoInicial(){
-        Set<Estado> estados = new HashSet<Estado>();
+        Set<Estado> estados = new HashSet<>();
         estados.add(new Estado("A", false, true));
         estados.add(new Estado("B", false, true));
         estados.add(new Estado("C", true, false));
@@ -91,7 +87,7 @@ public class TesteDaMaquina {
     
     @Test
     public void deveAceitarSeNaoPossuiNenhumEstadoAceitador(){
-        Set<Estado> estados = new HashSet<Estado>();
+        Set<Estado> estados = new HashSet<>();
         estados.add(new Estado("A", false, true));
         estados.add(new Estado("B", false, false));
         estados.add(new Estado("C", false, false));

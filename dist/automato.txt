@@ -1,10 +1,11 @@
 A,B
 a,b
-A,a,B;B,&,B;B,b,B;B,&,A;A,&,B;A,&,A;B,&,B
+
 A
-B
+B,A
 aab
 ab
 abbb
 abbba
+
 abbb

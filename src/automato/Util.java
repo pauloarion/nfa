@@ -76,8 +76,8 @@ public class Util {
     public static Set<Transicao> LerTransicoes(String linha){
         Set<Transicao> transicoes = new HashSet<>();
         try {
+            if (linha == null || linha.isEmpty())return transicoes;
             String[] transicoesEmTexto = linha.split(";");
-            naoDevePossuirCamposVazios(transicoesEmTexto, "Transições");
             for (String elemento : transicoesEmTexto) {
                 transicoes.add(construirTransicao(elemento));
             }

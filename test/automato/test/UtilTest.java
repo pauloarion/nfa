@@ -43,7 +43,7 @@ public class UtilTest {
         Set<Estado> estados =  Util.LerEstados("A,C");
         assertEquals(2,estados.size());
         Iterator<Estado> iterator = estados.iterator();
-        List<String> simbolosDosEstados = new ArrayList<String>();
+        List<String> simbolosDosEstados = new ArrayList<>();
         simbolosDosEstados.add("A");
         simbolosDosEstados.add("C");
         assertTrue(simbolosDosEstados.contains(iterator.next().simbolo));
@@ -55,11 +55,16 @@ public class UtilTest {
         Set<Transicao> transicoes = Util.LerTransicoes("A,b,B;C,d,I");
         assertTrue(transicoes.size() == 2);
         Iterator<Transicao> iterator = transicoes.iterator();
-        List<Transicao> transicoesQueDevemExistir = new ArrayList<Transicao>();
+        List<Transicao> transicoesQueDevemExistir = new ArrayList<>();
         transicoesQueDevemExistir.add(new Transicao("A","B","b"));
         transicoesQueDevemExistir.add(new Transicao("C","I","d"));
         assertTrue(transicoesQueDevemExistir.contains(iterator.next()));
         assertTrue(transicoesQueDevemExistir.contains(iterator.next()));
+    }
+    
+    @Test
+    public void DeveLerTransicoesVazias(){
+        Util.LerTransicoes("");
     }
     
     @Test
