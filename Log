@@ -1,7 +1,6 @@
 automato.MaquinaInvalidaException
-	at automato.Util.naoDevePossuirCamposVazios(Util.java:156)
-	at automato.Util.LerAlfabeto(Util.java:48)
-	at automato.test.UtilTest.DeveSoltarExcecaoSeAlfabetoVazio(UtilTest.java:38)
+	at automato.Util.ConfigurarEstadosFinais(Util.java:135)
+	at automato.test.UtilTest.DeveRejeitarAceitadoresComEstadoInvalido(UtilTest.java:110)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

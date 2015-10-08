@@ -1,8 +1,0 @@
-
-Respostas:
-aab : Não pertence
-ab : Não pertence
-abbb : Não pertence
-abbba : Não pertence
- : Pertence
-abbb : Não pertence

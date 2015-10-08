@@ -129,7 +129,11 @@ public class Util {
             if(aceitadores == null || aceitadores.length == 0)return;
             for (String aceitador : aceitadores) {
                 Estado estado = BuscarEstado(estados, aceitador);
-                if (estado != null) estado.aceitador = true;
+                if (estado != null) {
+                    estado.aceitador = true;
+                }else{
+                    throw new MaquinaInvalidaException("Não foi possível configurar o autômato. Conjunto de estados finais informado não está contido no conjunto de estados do autômato.");
+                }
             }
             
         }catch (MaquinaInvalidaException e){

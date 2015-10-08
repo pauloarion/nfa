@@ -101,8 +101,8 @@ public class UtilTest {
         assertTrue(estados.stream().filter(x -> x.simbolo.equals("T")).findFirst().get().Aceitador());
     }
     
-    @Test
-    public void DeveSetarAceitadoresMesmoComEstadoInvalido(){
+    @Test(expected = MaquinaInvalidaException.class)
+    public void DeveRejeitarAceitadoresComEstadoInvalido(){
         Set<Estado> estados = new HashSet<>();
         estados.add(new Estado("M", false, false));
         estados.add(new Estado("J", false, false));

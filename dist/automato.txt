@@ -2,7 +2,7 @@ A,B
 a,b
 
 A
-B,A
+C
 aab
 ab
 abbb
